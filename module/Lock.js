@@ -128,6 +128,7 @@ class Lock {
                     if (hasdone) {
                       this.redraw()
                       Lock.restore(this.maps)
+                      Tip.hide()
                       return this.opt.open()
                     }
                     this.initlock()
