@@ -1,7 +1,3 @@
-export let ERROR = {
-    maplength: '锁点总数必须9个'
-}
-
 export let opt = {
     regular: {
         distance: 10,
@@ -13,7 +9,7 @@ export let opt = {
         h: 200,
         initCircle: 'black',
         circleStyle: 'red',
-        dotRadius: 1,
+        dotRadius: 3,
         fillStyle: 'red',
         circleRadius: 10,
         padding: 20,
