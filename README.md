@@ -1,3 +1,3 @@
-移动端滑动解锁插件，以后项目用到可以直接用
+#移动端滑动解锁插件
 ## 在线地址
-![Image text](http://GestureLock/example/example.png)
+![Image text](http://lyz1991.github.io/example/lock.png)
