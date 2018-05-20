@@ -36,7 +36,7 @@ export let TipStyle = {
     transform: 'translate(-50%)',
     fontSize: '12px',
     padding: '3px 10px',
-    backgroundColor: 'rgba(0,0,0.7)',
+    background: 'rgba(0,0,0,0.7)',
     textAlign: 'center'
 }
 export let LockData = [{

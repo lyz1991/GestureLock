@@ -16,7 +16,7 @@ class Lock {
         this.left = this.canvas.getBoundingClientRect().left
         this.drawcircles(this.maps)
         this.top = this.canvas.getBoundingClientRect().top
-        this.bind()
+        this.bind(id)
     }
     initlock () {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -72,20 +72,21 @@ class Lock {
         this.drawrecords(this.firstCompeted ? this.recordsT : this.records)
         this.drawcircles(this.maps)
     }
-    bind () {
+    bind (id) {
         let state
-        this.canvas.addEventListener('mousedown', (e) => {
+        this.canvas.addEventListener('touchstart', (e) => {
             state = true
-            this.startX = e.clientX
-            this.startY = e.clientY
+            this.startX = e.touches[0].clientX
+            this.startY = e.touches[0].clientY
             this.ctx.moveTo(this.startX - this.left, this.startY- this.top)
         })
-        document.addEventListener('mousemove', e => {
+        document.querySelector(id).addEventListener('touchmove', e => {
+            e.preventDefault()
             if (state) {
                 Lock.showTips(this.tips.moveTips, '', '', true)
             }
         })
-        this.canvas.addEventListener('mousemove', (e) => {
+        this.canvas.addEventListener('touchmove', (e) => {
             if (state) {
                 if (this.from) {
                     this.redraw()
@@ -95,13 +96,13 @@ class Lock {
                         this.ctx.moveTo(this.startX - this.left, this.startY- this.top)
                     }
                     this.ctx.strokeStyle = this.styles.lineStyle
-                    this.ctx.lineTo(e.clientX - this.left, e.clientY - this.top)
+                    this.ctx.lineTo(e.changedTouches[0].clientX - this.left, e.changedTouches[0].clientY - this.top)
                     this.ctx.stroke()
                 }
-                this.checkDistance(e.clientX - this.left, e.clientY - this.top)
+                this.checkDistance(e.changedTouches[0].clientX - this.left, e.changedTouches[0].clientY - this.top)
             }
         })
-        document.addEventListener('mouseup', e => {
+        document.addEventListener('touchend', e => {
             state = false
             if (this.firstCompeted) {
                 if (!Lock.compare(this.recordsT, this.records)) {
@@ -110,10 +111,10 @@ class Lock {
                     setTimeout(() => {
                         this.initlock()
                     }, 1000)
-                    return Lock.showTips(this.tips.twiceImgerr, '', '', true)
+                    return Lock.showTips(this.tips.twiceImgerr, '', '', false)
                 }
                 this.redraw()
-                Lock.showTips(this.tips.lockSuccess, '', '', false)
+                Lock.showTips(this.tips.lockSuccess, '', '', true)
             } else {
                 if (this.records.length < this.regular.shoudlength) {
                     this.initlock()

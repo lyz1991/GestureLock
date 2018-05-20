@@ -2,7 +2,7 @@ const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = {
-    entry: './lock.js',
+    entry: ['babel-polyfill','./lock.js'],
     mode: 'development',
     output:  {
         path: path.resolve(__dirname, './build'),
