@@ -2,7 +2,7 @@ import * as L from './consts'
 import generateData from './utils'
 import Tip from './Tip'
 class Lock {
-    constructor (id, opt) {
+    constructor (id, opt, hasdone = false) {
         this.assign(opt)
         this.createCanvas(id)
         this.ctx = this.canvas.getContext('2d')
@@ -13,10 +13,11 @@ class Lock {
         this.startX = null
         this.startY = null
         this.from = null
+        this.opt = opt
         this.left = this.canvas.getBoundingClientRect().left
         this.drawcircles(this.maps)
         this.top = this.canvas.getBoundingClientRect().top
-        this.bind(id)
+        this.bind(id, hasdone)
     }
     initlock () {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -37,7 +38,7 @@ class Lock {
         canvas.width = this.styles.w
         canvas.height = this.styles.h
         document.querySelector(id).appendChild(canvas)
-        this.canvas = canvas
+        this.canvas = document.querySelector(id).querySelector('canvas')
     }
     drawOneCircle (dot, first) {
         this.ctx.beginPath()
@@ -72,13 +73,13 @@ class Lock {
         this.drawrecords(this.firstCompeted ? this.recordsT : this.records)
         this.drawcircles(this.maps)
     }
-    bind (id) {
+    bind (id, hasdone) {
         let state
         this.canvas.addEventListener('touchstart', (e) => {
             state = true
-            this.startX = e.touches[0].clientX
-            this.startY = e.touches[0].clientY
-            this.ctx.moveTo(this.startX - this.left, this.startY- this.top)
+            this.startX = e.touches[0].pageX
+            this.startY = e.touches[0].pageY
+            this.ctx.moveTo(this.startX - this.left, this.startY - this.top)
         })
         document.querySelector(id).addEventListener('touchmove', e => {
             e.preventDefault()
@@ -96,13 +97,13 @@ class Lock {
                         this.ctx.moveTo(this.startX - this.left, this.startY- this.top)
                     }
                     this.ctx.strokeStyle = this.styles.lineStyle
-                    this.ctx.lineTo(e.changedTouches[0].clientX - this.left, e.changedTouches[0].clientY - this.top)
+                    this.ctx.lineTo(e.changedTouches[0].pageX - this.left, e.changedTouches[0].pageY - this.top)
                     this.ctx.stroke()
                 }
-                this.checkDistance(e.changedTouches[0].clientX - this.left, e.changedTouches[0].clientY - this.top)
+                this.checkDistance(e.changedTouches[0].pageX - this.left, e.changedTouches[0].pageY - this.top)
             }
         })
-        document.addEventListener('touchend', e => {
+        document.querySelector(id).addEventListener('touchend', e => {
             state = false
             if (this.firstCompeted) {
                 if (!Lock.compare(this.recordsT, this.records)) {
@@ -111,10 +112,12 @@ class Lock {
                     setTimeout(() => {
                         this.initlock()
                     }, 1000)
-                    return Lock.showTips(this.tips.twiceImgerr, '', '', false)
+                    return Lock.showTips(this.tips.twiceImgerr, '', 1000)
                 }
                 this.redraw()
                 Lock.showTips(this.tips.lockSuccess, '', '', true)
+                Lock.restore(this.maps)
+                this.opt.complete()
             } else {
                 if (this.records.length < this.regular.shoudlength) {
                     this.initlock()
@@ -122,6 +125,11 @@ class Lock {
                     Lock.showTips(this.tips.lessNum)
                     return
                 } else {
+                    if (hasdone) {
+                      this.redraw()
+                      Lock.restore(this.maps)
+                      return this.opt.open()
+                    }
                     this.initlock()
                     this.firstCompeted = true
                     Lock.showTips(this.tips.firstCompeted)

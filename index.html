@@ -15,15 +15,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            overflow: scroll;
         }
-        html, body {
-            width: 100%;
-            height: 100vh;
+        p {
+            text-align: center;
         }
-        #lock {
-            height: 100%;
+        #lock, #lock1 {
+            margin-bottom: 20px;
             width: 100%;
-            padding-top: 150px;
+            padding-top: 30px;
         }
         canvas {
             display: block;
@@ -32,7 +32,12 @@
     </style>
 </head>
 <body>
-<div id="lock"></div>
+<div id="lock">
+    <p>加锁</p>
+</div>
+<div id="lock1">
+    <p>开锁</p>
+</div>
 </body>
 <script src="./build/main.js"></script>
 </html>

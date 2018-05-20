@@ -1,6 +1,6 @@
 export let opt = {
     regular: {
-        distance: 10,
+        distance: 15,
         shoudlength: 4
 
     },
@@ -28,8 +28,8 @@ export let TipStyle = {
     color: 'white',
     position: 'absolute',
     left: '50%',
-    top:'10%',
-    transform: 'translate(-50%)',
+    top:'50%',
+    transform: 'translate(-50%, -30%)',
     fontSize: '12px',
     padding: '3px 10px',
     background: 'rgba(0,0,0,0.7)',

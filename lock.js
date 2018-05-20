@@ -1,9 +1,17 @@
 import Lock from './module/Lock'
 new Lock('#lock', {
     styles: {
-      circleStyle:'green'
+        circleStyle:'red'
     },
-    ERROR: {
-        maplength: '锁点总数必须9个'
+    complete: function () {
+        alert('开始向后台提交您的手势')
     }
 })
+new Lock('#lock1', {
+    styles: {
+        circleStyle:'red'
+    },
+    open: function () {
+        alert('开始向后台确认您的手势是否正确')
+    }
+}, true)
