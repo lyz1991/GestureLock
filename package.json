@@ -2,7 +2,7 @@
   "name": "lock",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "module/Lock.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -w",
