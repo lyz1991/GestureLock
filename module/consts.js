@@ -7,13 +7,17 @@ export let opt = {
     styles: {
         w: 200,
         h: 200,
-        initCircle: 'black',
-        circleStyle: 'red',
+        initCircle: 'white',
+        circleStyle: 'green',
+        circleStyleErr: 'rgb(244,83,80)',
+        circleStyleInit: 'white',
         dotRadius: 3,
-        fillStyle: 'red',
+        fillStyle: 'green',
+        fillStyleErr: 'rgb(244,83,80)',
         circleRadius: 10,
         padding: 20,
-        lineColor: 'black'
+        lineColor: 'white',
+        lineWidth: 2
     },
     Tips: {
         wequalh: '宽高必须相同',
