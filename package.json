@@ -1,5 +1,5 @@
 {
-  "name": "lock",
+  "name": "gesturelock",
   "version": "1.0.1",
   "description": "",
   "main": "module/Lock.js",
