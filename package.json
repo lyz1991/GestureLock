@@ -1,6 +1,6 @@
 {
   "name": "gesturelock",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "module/Lock.js",
   "scripts": {
